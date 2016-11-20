@@ -23,7 +23,7 @@ spring:
 # mysql config
   datasource:
     schema: classpath:/mysql.sql
-    url: jdbc:mysql://120.27.34.1:3306/zipkin?autoReconnect=true
+    url: jdbc:mysql://localhost:3306/zipkin?autoReconnect=true
     username: root
     password: passw0rd
     driver-class-name: com.mysql.jdbc.Driver
@@ -34,7 +34,7 @@ spring:
 
 # rabbitmq config(use MQ as message middleware)
   rabbitmq:
-    host: 120.27.34.1
+    host: localhost
     port: 5672
     username: test
     password: test001

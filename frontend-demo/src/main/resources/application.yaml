@@ -18,7 +18,7 @@ spring:
     percentage: 1.0
     enabled: true
   rabbitmq:
-    host: 120.27.34.1
+    host: localhost
     port: 5672
     username: test
     password: test001
