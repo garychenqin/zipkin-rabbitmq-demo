@@ -1,0 +1,66 @@
+# server port
+server:
+  port: 9411
+
+# tell zipkin use mysql
+zipkin:
+  storage:
+    type: mysql
+
+# 默认的profile为dev，其他环境通过指定启动参数使用不同的profile，比如：
+#   线下环境：java -jar my-spring-boot.jar --spring.profiles.active=offline
+#   生产环境：java -jar my-spring-boot.jar --spring.profiles.active=online
+spring:
+  profiles:
+    active: offline
+  application:
+    name: zipkin-server
+
+---
+# 线下环境
+spring:
+  profiles: offline
+# mysql config
+  datasource:
+    schema: classpath:/mysql.sql
+    url: jdbc:mysql://120.27.34.1:3306/zipkin?autoReconnect=true
+    username: root
+    password: passw0rd
+    driver-class-name: com.mysql.jdbc.Driver
+    initialize: true
+    continue-on-error: true
+  sleuth:
+    enabled: false
+
+# rabbitmq config(use MQ as message middleware)
+  rabbitmq:
+    host: 120.27.34.1
+    port: 5672
+    username: test
+    password: test001
+    virtual-host: /test
+
+---
+
+# 线上环境
+spring:
+  profiles: online
+# mysql config
+  datasource:
+    schema: classpath:/mysql.sql
+    url: jdbc:mysql://localhost:3306/zipkin?autoReconnect=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    initialize: true
+    continue-on-error: true
+  sleuth:
+    enabled: false
+
+# rabbitmq config(use MQ as message middleware)
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: test
+    password: test001
+    virtual-host: /test
